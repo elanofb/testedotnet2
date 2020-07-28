@@ -1,0 +1,2 @@
+:: Commando para geração do model ::
+Scaffold-DbContext "Server=LAPTOP-HF1QKS9R\ELANOPC;Database=TesteElano;integrated security=True;MultipleActiveResultSets=True;" Microsoft.EntityFrameworkCore.SqlServer -OutputDir Models
