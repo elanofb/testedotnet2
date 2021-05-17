@@ -1,0 +1,156 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <title>Listagem de Filmes</title>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css">  
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+  <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/js/bootstrap.min.js"></script>
+</head>
+<body>
+
+<div class="container">
+  
+  <form>
+    <div class="form-group">
+      <label for="txtTitulo">Titulo:</label>
+      <input type="text" class="form-control" id="txtTitulo">
+    </div>
+    <div class="form-group">
+      <label for="txtSinopse">Sinopse:</label>
+      <input type="text" class="form-control" id="txtSinopse">
+    </div>
+	
+	<button type="button" class="btn btn-primary" onclick="Salvar()">Salvar</button>
+	<button type="button" class="btn btn-success btn-icon heading-btn legitRipple" onclick="GetFilmes()">Atualizar Lista <i class="icon-reload"></i></button>
+  </form>
+  
+  <div class="panel panel-flat border-top-success">
+	<div class="panel-heading">
+		<h5 class="panel-title"><i class="icon-table position-left"></i> Lista de Filmes<a class="heading-elements-toggle"><i class="icon-more"></i></a></h5>
+		<div class="heading-elements">
+			<form class="heading-form" action="#">
+				<div class="form-group">
+					<select id="selRegs" class="form-control" onchange="GetData();">
+						<option value="5">5 Registros por página</option>
+						<option value="10" selected>10 Registros por página</option>
+						<option value="15">15 Registros por página</option>
+						<option value="20">20 Registros por página</option>
+						<option value="50">50 Registros por página</option>
+					</select>
+				</div>
+			</form>
+			<button type="button" class="btn btn-success btn-icon heading-btn legitRipple" onclick="Inserir();">Novo Item <i class="icon-add"></i></button>
+			
+			<ul class="icons-list">
+				<li><a data-action="collapse"></a></li>
+			</ul>
+		</div>
+	</div>
+
+	<div id="tblResponsive" class="table-responsive" style="padding:0">
+
+		<table id="tblFilmes" class="table datatable-ajax table-sm table-striped table-bordered table-hover" width="100%">
+			<thead class="bg-primary-600">
+				<tr>
+					<th> ID</th>
+					<th> TITULO</th>
+					<th> ALUGADO</th>                                    
+					<th> DATA ALUGUEL</th>
+					<th> DATA ENTREGA</th>
+					<th class="col-lg-1">Ações</th>
+				</tr>
+			</thead>
+			<tbody></tbody>
+		</table>
+		<center>
+			<div id="paginador"></div>
+		</center>
+	</div>
+</div>
+  
+</div>
+
+<script>
+
+$(document).ready(function(){
+	GetFilmes();
+});
+
+function Salvar(){
+
+	var dataParams = {
+	  "titulo": $("#txtTitulo").val(),
+	  "sinopse": $("#txtSinopse").val(),
+	  "imagem": "",
+	  "genero": "1",
+	  "alugado": false,
+	  "dataAluguel": null,
+	  "dateEntrega": null
+	}
+	
+	$.ajax({
+		url: 'https://localhost:44382/Filme/Add',
+		type: "POST	",
+		//contentType: "application/json; charset=utf-8",
+		//dataType: 'json',
+		//processData: false,
+		data: JSON.stringify(dataParams),
+		success: function (data) {			
+			alert("Filme Salvo com sucesso!!");			
+		},
+		failure: function (data) {
+			alert(data.responseText);
+		}, 
+		error: function (err) {
+			alert(err.statusText);
+		}
+	});
+
+} 
+
+
+function GetFilmes(){
+	
+	$.ajax({
+		url: 'https://localhost:44382/Filme',
+		type: "GET	",
+		//contentType: "application/json; charset=utf-8",
+		//dataType: 'json',
+		//processData: false,
+		data: JSON.stringify(dataParams),
+		success: function (data) {
+			//alert('okkk');
+			//alert(result.result);
+			var resultData = data.result;
+			var htmlRow = "";
+			for(var i=0;i <= resultData.length;i++){
+				htmlRow += "<tr>";
+				htmlRow += "<td>" + resultData[i].titulo + "</td>";
+				htmlRow += "<td>" + resultData[i].sinopse + "</td>";
+				htmlRow += "<td>" + resultData[i].imagem + "</td>";
+				htmlRow += "<td>" + resultData[i].genero + "</td>";		
+				htmlRow += "<td>" + resultData[i].alugado + "</td>";
+				htmlRow += "<td>" + resultData[i].dataAluguel + "</td>";
+				htmlRow += "<td>" + resultData[i].dateEntrega + "</td>";		
+				htmlRow += "</tr>";
+			}
+			$("#tblFilmes tbody").html(htmlRow);			
+			
+		},
+		failure: function (data) {
+			alert(data.responseText);
+		}, 
+		error: function (err) {
+			alert(err.statusText);
+		}
+	});
+
+} 
+
+</script>
+
+
+</body>
+</html>

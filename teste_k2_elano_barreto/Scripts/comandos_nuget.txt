@@ -1,0 +1,3 @@
+:: Commando para geração do model ::
+Scaffold-DbContext "Server=SQL5052.site4now.net;Database=[XXXX];User Id=[XXXX];Password=[XXXX];MultipleActiveResultSets=True;" Microsoft.EntityFrameworkCore.SqlServer -OutputDir Models
+                    
