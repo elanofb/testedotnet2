@@ -15,7 +15,6 @@ using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Options;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
-//using TesteElano.Util;
 //using Swashbuckle.AspNetCore.Swagger;
 using Microsoft.OpenApi.Models;
 using teste_k2_elano_barreto.Models;
@@ -38,56 +37,11 @@ namespace TesteElano
 
             services.AddRazorPages();
 
-            //services.AddDbContext<TesteElanoContext>(item => item.UseSqlServer(Configuration.GetConnectionString("K2DBConnection")));
             services.AddDbContext<DB_A46567_cotacaoContext>(item => item.UseSqlServer(Configuration.GetConnectionString("K2DBConnection")));
-            //services.AddScoped<IProjetoRepository, ProjetoRepository>();
-            //services.AddScoped<ILancamentoRepository, LancamentoRepository>();
-            //services.AddScoped<IDesenvolvedorRepository, DesenvolvedorRepository>();
             services.AddScoped<IFilmeRepository, FilmeRepository>();
 
-            #region CONFIGURAÇÕES DO TOKEN
+            #region CONFIGURAÃ‡Ã•ES DO TOKEN
 
-            
-            //var signingConfigurations = new SigningConfigurations();
-            //services.AddSingleton(signingConfigurations);
-
-            //var tokenConfigurations = new TokenConfigurations();
-            //new ConfigureFromConfigurationOptions<TokenConfigurations>(
-            //    Configuration.GetSection("TokenConfigurations"))
-            //        .Configure(tokenConfigurations);
-            //services.AddSingleton(tokenConfigurations);
-
-
-            //services.AddAuthentication(authOptions =>
-            //{
-            //    authOptions.DefaultAuthenticateScheme = JwtBearerDefaults.AuthenticationScheme;
-            //    authOptions.DefaultChallengeScheme = JwtBearerDefaults.AuthenticationScheme;
-            //}).AddJwtBearer(bearerOptions =>
-            //                                {
-            //                                    var paramsValidation = bearerOptions.TokenValidationParameters;
-            //                                    paramsValidation.IssuerSigningKey = signingConfigurations.Key;
-            //                                    paramsValidation.ValidAudience = tokenConfigurations.Audience;
-            //                                    paramsValidation.ValidIssuer = tokenConfigurations.Issuer;
-
-            //                                    // Valida a assinatura de um token recebido
-            //                                    paramsValidation.ValidateIssuerSigningKey = true;
-
-            //                                    // Verifica se um token recebido ainda é válido
-            //                                    paramsValidation.ValidateLifetime = true;
-
-            //                                    // Tempo de tolerância para a expiração de um token (utilizado
-            //                                    // caso haja problemas de sincronismo de horário entre diferentes
-            //                                    // computadores envolvidos no processo de comunicação)
-            //                                    paramsValidation.ClockSkew = TimeSpan.Zero;
-            //                                });
-
-            //// Ativa o uso do token como forma de autorizar o acesso a recursos do projeto
-            //services.AddAuthorization(auth =>
-            //{
-            //    auth.AddPolicy("Bearer", new AuthorizationPolicyBuilder()
-            //        .AddAuthenticationSchemes(JwtBearerDefaults.AuthenticationScheme)
-            //        .RequireAuthenticatedUser().Build());
-            //});
 
             #endregion
 
